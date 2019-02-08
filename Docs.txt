@@ -1,0 +1,27 @@
+Make sure to add the following to the top of your .cs file:
+// Reference: Assembly-CSharp
+// Reference: UnityEngine
+// Reference: bolt.user
+
+
+CODE: void OnConnectRequest(UdpEndPoint endpoint, IProtocolToken token)
+DESC: when someone joins the server, it should call.
+
+CODE: void OnMoveNext(object modclass)
+DESC: used to add an admin icon next to yourself in chat. does not give any permissions yet.
+RECOMMENDED CODE: see AdminBasics.cs
+
+CODE: void OnDisconnected(BoltConnection connection)
+DESC: when a player disconnects
+
+CODE: object OnEvent(ChatEvent evnt)
+DESC: when a player chats (terrible function name ik). return true to stop chat from being sent.
+
+CODE: void OnFartEvent(Fart evnt)
+DESC: when a player tries to reload, and they fart instead
+
+CODE: void OnInteractEvent(InteractEvent evnt)
+DESC: when a player picks up an item (or possibly all interactables)
+
+CODE: void OnSpawn(PlayerConnection connection, string creature, string gadget, string armor, Vector3 position, float yaw)
+DESC: when a player spawns, only connection works from my testing
