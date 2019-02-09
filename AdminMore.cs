@@ -144,7 +144,7 @@ namespace uMod.Plugins
 						while (enumerator.MoveNext())
 						{
 							BoltConnection current = enumerator.Current;
-							string newname = current.GetPlayerConnection().Player.state.PenName.Substring(9, current.GetPlayerConnection().Player.state.PenName.Length - 19);
+							string newname = current.GetPlayerConnection().PlayerInfo.state.PenName.Substring(9, current.GetPlayerConnection().PlayerInfo.state.PenName.Length - 19);
 							if (newname.ToLower().IndexOf(kickuser.ToLower()) != -1 && current.GetPlayerConnection().PlayerInfo.state.SteamID != user)
 							{
 								

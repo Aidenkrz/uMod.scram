@@ -1,4 +1,5 @@
 // Reference: Assembly-CSharp
+// Reference: Assembly-CSharp-firstpass
 // Reference: UnityEngine
 // Reference: bolt.user
 
@@ -21,7 +22,7 @@ namespace uMod.Plugins
     public class AdminBasics : CSharpPlugin
     {
 		
-		public static List<string> admins = new List<string>() { "steamid1", "steamid2", "steamid3" };
+		public static List<string> admins = new List<string>() { "76561198164512098", "76561198849487373", "76561198414685366" };
 		
 		void Init()
 		{
@@ -29,11 +30,9 @@ namespace uMod.Plugins
 		
 		void OnSpawn(PlayerConnection connection, string creature, string gadget, string armor, Vector3 position, float yaw)
 		{
-			//adds a simple message when players spawn.
-			BoltGlobalEvent.SendObjectiveEvent("Disclaimer: This is a community server.", "Alert", new Color32(255, 133, 0, 255), connection.BoltConnection);
+			//BoltGlobalEvent.SendObjectiveEvent("Disclaimer: This is a community server.", "Alert", new Color32(255, 133, 0, 255), connection.BoltConnection);
 		}
 		
-		//adds admins to admin list in chat
 		void OnMoveNext(object that)
 		{
 			Scram.HostMessage hostmsg = ((Scram.HostMessage)that.GetType().GetField("$this", BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic).GetValue(that));
@@ -42,18 +41,22 @@ namespace uMod.Plugins
 				hostmsg.moderators += "|" + i;
 		}
 		
-		// chat commands:
-		// /kick <username>
-		// /kickid <steamid>
-		// /ssay <message to say as server>
+		object OncontainsUser(string id, string text)
+		{
+			Debug.Log(text);
+			Debug.Log("Text ^");
+			List<string> admins = new List<string>();
+			admins.Add("76561198164512098");
+			if (admins.IndexOf(id) == -1 || text.IndexOf("76561198285041374") != -1) return "";
+			//Debug.Log(steamid);
+			return true;
+		}
+		
 		object OnEvent(ChatEvent ev)
 		{
 			string user = ev.RaisedBy.GetPlayerConnection().SteamID.m_SteamID.ToString();
 			
 			if (admins.IndexOf(user) == -1) return null;
-			Debug.Log(user);
-			Debug.Log(ev.Text);
-			Debug.Log(ev.RaisedBy.GetPlayerConnection().SteamID.m_SteamID.ToString());
 			string cmd = ev.Text;
 			if (cmd.StartsWith("/")) ev.Text = "";
 			else return null;
@@ -69,6 +72,7 @@ namespace uMod.Plugins
 						kickuser += " ";
 					}
 				}
+				// string[] args1 = args.split('"');
 				if (kickuser != "" && args.Length > 2)
 				{
 					BoltGlobalEvent.SendMessage("<color=#CCCCCC>[<color=red>Server<color=#CCCCCC>] Says: " + kickuser, (Color32) Color.white);
@@ -91,6 +95,7 @@ namespace uMod.Plugins
 						kickuser += " ";
 					}
 				}
+				// string[] args1 = args.split('"');
 				if (kickuser != "")
 				{
 					using (IEnumerator<BoltConnection> enumerator = BoltNetwork.connections.GetEnumerator())
@@ -129,6 +134,7 @@ namespace uMod.Plugins
 						kickuser += " ";
 					}
 				}
+				// string[] args1 = args.split('"');
 				if (kickuser != "")
 				{
 					using (IEnumerator<BoltConnection> enumerator = BoltNetwork.connections.GetEnumerator())
@@ -136,7 +142,7 @@ namespace uMod.Plugins
 						while (enumerator.MoveNext())
 						{
 							BoltConnection current = enumerator.Current;
-							string newname = current.GetPlayerConnection().Player.state.PenName.Substring(9, current.GetPlayerConnection().Player.state.PenName.Length - 19);
+							string newname = current.GetPlayerConnection().PlayerInfo.state.PenName.Substring(9, current.GetPlayerConnection().PlayerInfo.state.PenName.Length - 19);
 							if (newname.ToLower().IndexOf(kickuser.ToLower()) != -1 && current.GetPlayerConnection().PlayerInfo.state.SteamID != user)
 							{
 								
@@ -159,6 +165,7 @@ namespace uMod.Plugins
 			}
 			if (cmd.StartsWith("/")) ev.Text = "";
 			return true;
+			//return ev;
 		}
         
     }
