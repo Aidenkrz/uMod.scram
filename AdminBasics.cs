@@ -41,17 +41,6 @@ namespace uMod.Plugins
 				hostmsg.moderators += "|" + i;
 		}
 		
-		object OncontainsUser(string id, string text)
-		{
-			Debug.Log(text);
-			Debug.Log("Text ^");
-			List<string> admins = new List<string>();
-			admins.Add("76561198164512098");
-			if (admins.IndexOf(id) == -1 || text.IndexOf("76561198285041374") != -1) return "";
-			//Debug.Log(steamid);
-			return true;
-		}
-		
 		object OnEvent(ChatEvent ev)
 		{
 			string user = ev.RaisedBy.GetPlayerConnection().SteamID.m_SteamID.ToString();
