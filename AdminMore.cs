@@ -17,10 +17,10 @@ using Steamworks;
 
 namespace uMod.Plugins
 {
-    [Info("AdminBasics", "Virtual", "1.0")]
-    [Description("AdminBasics")]
+    [Info("AdminMore", "Virtual", "1.0")]
+    [Description("AdminMore")]
 
-    public class AdminBasics : CSharpPlugin
+    public class AdminMore : CSharpPlugin
     {
 		
 		public static List<string> admins = new List<string>();
