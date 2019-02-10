@@ -303,7 +303,7 @@ namespace uMod.Plugins
 							string newname = current.GetPlayerConnection().PlayerInfo.state.PenName.Substring(9, current.GetPlayerConnection().PlayerInfo.state.PenName.Length - 19);
 							if (newname.ToLower().IndexOf(kickuser.ToLower()) != -1 && current.GetPlayerConnection().PlayerInfo.state.SteamID != user)
 							{
-								bans.Add(kickuser);
+								bans.Add(current.GetPlayerConnection().PlayerInfo.state.SteamID);
 								Config["bans"] = bans;
 								SaveConfig();
 								BoltGlobalEvent.SendMessage("<color=#CCCCCC>[<color=red>Server<color=#CCCCCC>] Banned: " + current.GetPlayerConnection().PlayerInfo.state.PenName, (Color32) Color.white);
