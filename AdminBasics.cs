@@ -24,6 +24,7 @@ namespace uMod.Plugins
     {
 		
 		public static List<string> admins = new List<string>();
+		public string spwnmsg = "lol brok";
 		public List<string> bans = new List<string>();
 		public List<string> vip = new List<string>();
 		public int vipslots = 0;
@@ -63,6 +64,15 @@ namespace uMod.Plugins
 			{
 				Puts("Unable to load bans!");
 				Debug.Log("Unable to load bans!");
+			}
+			try
+			{
+				spwnmsg = (string)Config["SpawnMessage"];
+			}
+			catch (Exception e)
+			{
+				Puts("Unable to load spawnmsg");
+				Debug.Log("Unable to load spawnmsg");
 			}
 		}
 		
@@ -110,7 +120,7 @@ namespace uMod.Plugins
 				RefuseToken refuseToken2 = refuseToken1;
 				boltConnection.Disconnect((IProtocolToken) refuseToken2);
 			}
-			BoltGlobalEvent.SendObjectiveEvent((string)Config["SpawnMessage"], "Alert", new Color32(255, 133, 0, 255), connection.BoltConnection);
+			BoltGlobalEvent.SendObjectiveEvent(spwnmsg, "Alert", new Color32(255, 133, 0, 255), connection.BoltConnection);
 		}
 		
 		void OnMoveNext(object that)
@@ -172,8 +182,9 @@ namespace uMod.Plugins
 				ev.Text = "";
 			}
 			//rl or reload
-			if (cmd.StartsWith("/rl ") || cmd.StartsWith("/reload"))
+			if (cmd.StartsWith("/rl") || cmd.StartsWith("/reload"))
 			{
+				LoadConfig();
 				try
 				{
 					admins = ((IEnumerable<object>)Config["admins"]).OfType<string>().ToList();
@@ -210,6 +221,15 @@ namespace uMod.Plugins
 				{
 					Puts("Unable to load vip");
 					BoltGlobalEvent.SendPrivateMessage("Unable to load vip", new Color32(255, 0, 0, 255), ev.RaisedBy);
+				}
+				try
+				{
+					spwnmsg = (string)Config["SpawnMessage"];
+				}
+				catch (Exception e)
+				{
+					Puts("Unable to load spawnmsg");
+					BoltGlobalEvent.SendPrivateMessage("Unable to load spawnmsg", new Color32(255, 0, 0, 255), ev.RaisedBy);
 				}
 				ev.Text = "";
 			}
