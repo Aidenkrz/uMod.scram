@@ -230,6 +230,7 @@ namespace uMod.Plugins
 				{
 					bans.Remove(kickuser);
 					Config["bans"] = bans;
+					SaveConfig();
 					BoltGlobalEvent.SendMessage("<color=#CCCCCC>[<color=red>Server<color=#CCCCCC>] Unbanned: " + kickuser, (Color32) Color.white);
 				}
 				else
