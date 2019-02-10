@@ -221,7 +221,7 @@ namespace uMod.Plugins
 				for (int i = 1; i < args.Length; i++)
 				{
 					kickuser += args[i];
-					if (i < args.Length)
+					if (i < args.Length - 1)
 					{
 						kickuser += " ";
 					}
@@ -247,7 +247,7 @@ namespace uMod.Plugins
 				for (int i = 1; i < args.Length; i++)
 				{
 					kickuser += args[i];
-					if (i < args.Length)
+					if (i < args.Length - 1)
 					{
 						kickuser += " ";
 					}
